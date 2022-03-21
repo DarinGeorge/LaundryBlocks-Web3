@@ -1,3 +1,3 @@
 export const styles = {
-  wrapper: 'h-screen w-screen flex flex-col'
-}
+  wrapper: 'h-screen w-screen flex flex-col',
+};
