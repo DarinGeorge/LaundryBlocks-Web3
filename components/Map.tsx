@@ -2,7 +2,7 @@ import MapBox from 'mapbox-gl';
 import {styles} from '../styles/components/Map.tailwind';
 import {useEffect} from 'react';
 
-MapBox.accessToken = process.env.NEXT_PUBLIC_LB_MAP_LOCAL_ACCESS_TOKEN;
+MapBox.accessToken = process.env.NEXT_PUBLIC_LB_MAP_LOCAL_ACCESS_TOKEN || '';
 
 export default function Map() {
   useEffect(() => {
