@@ -4,11 +4,11 @@ import {styles} from '../styles/components/Navbar.tailwind';
 const userImageSize = 40;
 const src = 'https://randomuser.me/api/portraits/med/men/75.jpg';
 
-const connectedAccount = '0x3316E01aBcA2c15FF38c4945a53066F58161C079';
+const connectedAccount = '0x3316E01aBcA2c15FD38c4945a53066F58161C079';
 
 export default function Navbar() {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
       {/** Left List */}
       <div className={styles.left}>
         <div className={styles.logo}>LaundryBlocks</div>

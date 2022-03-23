@@ -1,4 +1,4 @@
-import {Navbar, Map} from '../components';
+import {Navbar, Map, Requestor} from '../components';
 import {styles} from '../styles/pages/Home.tailwind';
 
 export default function Home() {
@@ -6,8 +6,7 @@ export default function Home() {
     <div className={styles.wrapper}>
       <Navbar />
       <Map />
-      {/** Location Selection */}
-      {/** Confirm Pickup */}
+      <Requestor />
     </div>
   );
 }

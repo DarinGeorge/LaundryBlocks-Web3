@@ -1,3 +1,4 @@
 export const styles = {
-  wrapper: 'flex-1 h-full w-full',
+  container: 'h-full w-screen flex-1 ',
+  map: 'flex-1 w-full h-full',
 };
