@@ -37,6 +37,7 @@ export default function Header() {
         <div className={`${styles.item} ${focusedPickupStyles}`}>
           <CircleSVG />
           <input
+            type='text'
             className={styles.input}
             placeholder='Pickup location'
             name='pickup'
@@ -51,6 +52,7 @@ export default function Header() {
         <div className={`${styles.item} ${focusedDropoffStyles}`}>
           <SquareSVG />
           <input
+            type='text'
             className={styles.input}
             placeholder='Dropoff?'
             name='dropoff'

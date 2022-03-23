@@ -17,6 +17,7 @@ export default function Map() {
     if (!coords) return;
     if (coords.start && map) placeMarker(map, coords.start);
     if (coords.end && map) placeMarker(map, coords.end);
+    if (coords.start && coords.end && map) map.fitBounds([coords.start, coords.end], {padding: 180});
   }, [coords]);
 
   const initMap = () => {

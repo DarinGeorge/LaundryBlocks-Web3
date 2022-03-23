@@ -52,6 +52,8 @@ export function MapProvider({children}: any) {
   };
 
   const createCoordinate = (info: {name: string; type: 'pickup' | 'dropoff'}) => {
+    if (info.name === undefined || info.type === undefined) return;
+
     return new Promise(async (resolve: (value: undefined) => void, reject) => {
       try {
         const res = await fetch(`${endpoint}/${info.name}.json?access_token=${token}`, {
@@ -60,6 +62,7 @@ export function MapProvider({children}: any) {
           },
         });
         const locations = await res.json();
+
         const data: MapBox.LngLatLike = locations.features[0].center;
 
         if (!!data) {
