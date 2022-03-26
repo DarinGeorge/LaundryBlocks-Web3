@@ -87,14 +87,14 @@ export const schema = {
                     "name": "walletAddress",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "username": {
                     "name": "username",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "image": {
@@ -149,5 +149,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "aaf118765e93d12198b265345521811e"
+    "version": "bb21555a5d3989f4911a0a47c6a37273"
 };

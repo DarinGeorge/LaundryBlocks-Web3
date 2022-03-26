@@ -25,8 +25,8 @@ export declare class Service {
 
 export declare class User {
   readonly id: string;
-  readonly walletAddress?: string;
-  readonly username?: string;
+  readonly walletAddress: string;
+  readonly username: string;
   readonly image?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;

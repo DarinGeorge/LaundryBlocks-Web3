@@ -1,5 +1,7 @@
+import {ethers} from 'ethers';
 import MapBox, {LngLatLike} from 'mapbox-gl';
 import {Dispatch} from 'react';
+import {User} from './models';
 
 export type RoutingLocation = {
   pickup: string;
@@ -15,14 +17,19 @@ export type Option = {
 export type MapProviderValue = {
   state: MapReducerState;
   dispatch: Dispatch<MapReducerAction>;
-  buildMap(): MapBox.Map | undefined;
-  getRoute(start: Coordinate, end: Coordinate, map: MapBox.Map): Promise<void | undefined>;
+  buildMap(): MapBox.Map | void;
+  getRoute(start: Coordinate, end: Coordinate, map: MapBox.Map): Promise<void>;
+};
+
+export type MetamaskProviderValue = {
+  metamask: ethers.providers.Web3Provider | undefined;
+  connectWallet(): Promise<void>;
+  currentUser: User | undefined;
 };
 
 export type MapReducerState = {
   pickup: string;
   dropoff: string;
-  map: MapBox.Map | undefined;
   coords: {start: MapBox.LngLatLike | undefined; end: MapBox.LngLatLike | undefined};
 };
 

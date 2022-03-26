@@ -26,6 +26,8 @@ export const mapReducer = (state: MapReducerState, action: MapReducerAction): Ma
           return {...state, coords: {...state.coords, end: action.payload.data}};
         }
       }
+
+      return state;
     }
 
     default: {

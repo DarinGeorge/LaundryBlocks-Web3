@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "LaundryBlocks",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-c3503ab7-e1ba-41da-a1cf-c14c0cd933be/amplify/backend/api/LaundryBlocks/schema.graphql",
+    "gqlSchemaPath": "/tmp/amplify-89c98c52-830b-4999-9dc4-c1e087bab016/amplify/backend/api/LaundryBlocks/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",

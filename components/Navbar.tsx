@@ -1,12 +1,33 @@
+import {BigNumber, ethers} from 'ethers';
 import Image from 'next/image';
+import {useContext, useEffect, useState} from 'react';
+
+import {MetamaskContext} from '../context/metamask';
 import {styles} from '../styles/components/Navbar.tailwind';
 
 const userImageSize = 40;
 const src = 'https://randomuser.me/api/portraits/med/men/75.jpg';
 
-const connectedAccount = '0x3316E01aBcA2c15FD38c4945a53066F58161C079';
-
 export default function Navbar() {
+  const [balance, setBalance] = useState<number>();
+  const {currentUser, connectWallet, metamask} = useContext(MetamaskContext);
+
+  const onClickConnectButton = async () => {
+    await connectWallet();
+  };
+
+  useEffect(() => {
+    if (!currentUser || !metamask) return;
+
+    (async () => {
+      const bal = await metamask.getBalance(currentUser.walletAddress);
+      const fullBal = ethers.utils.formatEther(bal);
+      const formattedBal = parseFloat(fullBal).toFixed(3);
+
+      setBalance(Number(formattedBal));
+    })();
+  }, [currentUser, metamask]);
+  console.log('MMSK', balance);
   return (
     <div className={styles.container}>
       {/** Left List */}
@@ -19,8 +40,8 @@ export default function Navbar() {
 
       {/** Right List */}
       <div className={styles.right}>
-        {!connectedAccount ? (
-          <div className={styles.connectBtn}>
+        {!currentUser ? (
+          <div className={styles.connectBtn} onClick={onClickConnectButton}>
             <span className={styles.connectBtnText}>Connect</span>
           </div>
         ) : (
@@ -36,11 +57,13 @@ export default function Navbar() {
             </div>
 
             <div className={styles.userInfo}>
-              <div className={styles.username}>Username</div>
+              <div className={styles.username}>{currentUser.username}</div>
               <div className={styles.walletAddress}>
-                {connectedAccount.slice(0, 2)}***{connectedAccount.slice(38)}
+                {currentUser.walletAddress?.slice(0, 2)}****{currentUser.walletAddress?.slice(38)}
               </div>
             </div>
+
+            <div>{balance} ETH</div>
           </>
         )}
       </div>

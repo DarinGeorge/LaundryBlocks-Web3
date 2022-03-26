@@ -1,5 +1,5 @@
 export const styles = {
-  container: 'absolute top-0 h-15 w-full bg-black text-white flex md:justify-around items-center px-60 z-10',
+  container: 'absolute top-0 h-[55px] w-full bg-black text-white flex md:justify-around items-center px-60 z-10',
   left: 'flex gap-3',
   right: 'flex gap-3 items-center',
   logo: 'text-xl text-white flex cursor-pointer mr-16',

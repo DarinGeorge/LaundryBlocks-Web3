@@ -43,6 +43,7 @@ export default function Header() {
             id='pickup-geocoder'
             type='text'
             className={styles.input}
+            placeholder='Pickup Location'
             name='pickup'
             value={pickup}
             {...{onChange, onFocus}}

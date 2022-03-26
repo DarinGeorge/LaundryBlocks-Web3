@@ -1,0 +1,18 @@
+projects:
+  LaundryBlocks:
+    schemaPath: amplify/backend/api/LaundryBlocks/build/schema.graphql
+    includes:
+      - pages/api/operations/*/**
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: pages/api/API.ts
+        docsFilePath: pages/api/operations
+        region: us-east-1
+        apiId: null
+        maxDepth: 2
+extensions:
+  amplify:
+    version: 3

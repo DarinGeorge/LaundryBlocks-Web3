@@ -5,7 +5,7 @@ import {styles} from '../styles/components/Map.tailwind';
 import {MapContext} from '../context/map';
 
 export default function Map() {
-  const [map, setMap] = useState<MapBox.Map>();
+  const [map, setMap] = useState<void | MapBox.Map>();
   const {
     state: {coords},
     buildMap,
@@ -14,7 +14,8 @@ export default function Map() {
 
   useEffect(() => {
     if (!map) {
-      setMap(buildMap());
+      const _builtMap = buildMap() as MapBox.Map;
+      setMap(_builtMap);
       return;
     }
 

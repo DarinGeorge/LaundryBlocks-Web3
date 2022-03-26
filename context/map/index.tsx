@@ -1,12 +1,13 @@
+import {ethers} from 'ethers';
 import MapBox from 'mapbox-gl';
 import {Context, createContext, useEffect, useReducer} from 'react';
-import {Coordinate, MapProviderValue, MapReducerState} from '../../types';
+import {saveUser} from '../../pages/api/operations/saveUser';
+import {MapProviderValue, MapReducerState} from '../../types';
 import {mapReducer} from './reducer';
 
 const mapInitialState: MapReducerState = {
   pickup: '',
   dropoff: '',
-  map: undefined,
   coords: {start: undefined, end: undefined},
 };
 
@@ -15,11 +16,12 @@ const mapInitialValue: MapProviderValue = {
   dispatch: () => {
     throw new Error('Unrecognized component attempted to access MapContext');
   },
-  buildMap: () => undefined,
-  getRoute: async () => undefined,
+  buildMap: () => {},
+  getRoute: async () => {},
 };
 
-const endpoint: string | undefined = process.env.NEXT_PUBLIC_MAPBOX_PLACES_API_URL;
+const coordinateEndpoint: string | undefined = process.env.NEXT_PUBLIC_MAPBOX_PLACES_API_URL;
+const routingEndpoint: string | undefined = process.env.NEXT_PUBLIC_MAPBOX_ROUTING_DRIVING_API_URL;
 const token: string | undefined = process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN;
 
 export const MapContext: Context<MapProviderValue> = createContext(mapInitialValue);
@@ -48,7 +50,7 @@ export function MapProvider({children}: any) {
 
   const getRoute = async (start: [number, number], end: [number, number], map: MapBox.Map) => {
     const query = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${token}`,
+      `${routingEndpoint}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${token}`,
       {method: 'GET'}
     );
     const json = await query.json();
@@ -80,7 +82,7 @@ export function MapProvider({children}: any) {
           'line-cap': 'round',
         },
         paint: {
-          'line-color': '#3887be',
+          'line-color': '#fff',
           'line-width': 5,
           'line-opacity': 0.75,
         },
@@ -100,7 +102,7 @@ export function MapProvider({children}: any) {
 
     return new Promise(async (resolve: (value: undefined) => void, reject) => {
       try {
-        const res = await fetch(`${endpoint}/${info.name}.json?access_token=${token}`, {
+        const res = await fetch(`${coordinateEndpoint}/${info.name}.json?access_token=${token}`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -127,10 +129,6 @@ export function MapProvider({children}: any) {
     dispatch,
     buildMap,
     getRoute,
-    // connectWallet
-    // currentAccount
-    // currentUser
-    // metamask
   };
 
   return <MapContext.Provider {...{value}}>{children}</MapContext.Provider>;
