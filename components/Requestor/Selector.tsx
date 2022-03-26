@@ -21,6 +21,19 @@ const optionList: Option[] = [
 
 const basePrice = 154;
 
+export default function Selector() {
+  return (
+    <div className={styles.selectorWrapper}>
+      <div className={styles.title}>Choose a service</div>
+      <div className={styles.optionList}>
+        {optionList.map((option, index) => (
+          <OptionItem key={`o${index}`} {...{option}} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function OptionItem({option}: {option: Option}) {
   return (
     <div className={styles.option}>
@@ -36,19 +49,6 @@ function OptionItem({option}: {option: Option}) {
             <Image src={ethlogo} width={14} height={14} />
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-export default function Selector() {
-  return (
-    <div className={styles.selectorWrapper}>
-      <div className={styles.title}>Choose a service</div>
-      <div className={styles.optionList}>
-        {optionList.map((option, index) => (
-          <OptionItem key={`o${index}`} {...{option}} />
-        ))}
       </div>
     </div>
   );

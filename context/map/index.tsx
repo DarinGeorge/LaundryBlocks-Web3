@@ -1,11 +1,12 @@
 import MapBox from 'mapbox-gl';
-import {Context, createContext, Provider, ProviderProps, useEffect, useReducer} from 'react';
-import {MapProviderValue, MapReducerState} from '../../types';
+import {Context, createContext, useEffect, useReducer} from 'react';
+import {Coordinate, MapProviderValue, MapReducerState} from '../../types';
 import {mapReducer} from './reducer';
 
 const mapInitialState: MapReducerState = {
   pickup: '',
   dropoff: '',
+  map: undefined,
   coords: {start: undefined, end: undefined},
 };
 
@@ -15,10 +16,11 @@ const mapInitialValue: MapProviderValue = {
     throw new Error('Unrecognized component attempted to access MapContext');
   },
   buildMap: () => undefined,
+  getRoute: async () => undefined,
 };
 
-const endpoint = process.env.NEXT_PUBLIC_MAPBOX_PLACES_API_URL;
-const token = process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN;
+const endpoint: string | undefined = process.env.NEXT_PUBLIC_MAPBOX_PLACES_API_URL;
+const token: string | undefined = process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN;
 
 export const MapContext: Context<MapProviderValue> = createContext(mapInitialValue);
 
@@ -42,6 +44,48 @@ export function MapProvider({children}: any) {
     });
 
     return map;
+  };
+
+  const getRoute = async (start: [number, number], end: [number, number], map: MapBox.Map) => {
+    const query = await fetch(
+      `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${token}`,
+      {method: 'GET'}
+    );
+    const json = await query.json();
+    const data = json.routes[0];
+    const route = data.geometry.coordinates;
+    const geojson = {
+      type: 'Feature' as const,
+      properties: {},
+      geometry: {
+        type: 'LineString' as const,
+        coordinates: route,
+      },
+    };
+    // if the route already exists on the map, we'll reset it
+    if (map.getSource('route')) {
+      // handle resetting data
+    }
+    // otherwise, we'll make a new request
+    else {
+      map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: geojson,
+        },
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#3887be',
+          'line-width': 5,
+          'line-opacity': 0.75,
+        },
+      });
+    }
   };
 
   const processCoordinates = async () => {
@@ -82,6 +126,7 @@ export function MapProvider({children}: any) {
     state,
     dispatch,
     buildMap,
+    getRoute,
     // connectWallet
     // currentAccount
     // currentUser

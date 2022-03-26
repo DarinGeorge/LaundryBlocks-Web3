@@ -1,16 +1,36 @@
-import {ChangeEvent, ChangeEventHandler, FocusEvent, FocusEventHandler, useContext, useState} from 'react';
+import MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import {ChangeEvent, ChangeEventHandler, FocusEvent, FocusEventHandler, useContext, useEffect, useState} from 'react';
 
 import {MapContext} from '../../../context/map';
 import {styles} from '../../../styles/components/Requestor.tailwind';
 import CircleSVG from './CircleSVG';
 import SquareSVG from './SquareSVG';
 
+const token: string | undefined = process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN;
+
 export default function Header() {
   const [type, setType] = useState<string | 'pickup' | 'dropoff'>('pickup');
   const {
-    state: {pickup, dropoff},
+    state: {map, pickup, dropoff},
     dispatch,
   } = useContext(MapContext);
+
+  useEffect(() => {
+    if (!map) return;
+
+    initGeocoders();
+  }, [map]);
+
+  const initGeocoders = () => {
+    const geocoder = new MapBoxGeocoder({
+      accessToken: token || '',
+      mode: 'mapbox.places',
+      mapboxgl: map,
+      placeholder: 'Pickup location',
+    });
+
+    geocoder.addTo('#pickup-geocoder');
+  };
 
   const onChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -37,9 +57,9 @@ export default function Header() {
         <div className={`${styles.item} ${focusedPickupStyles}`}>
           <CircleSVG />
           <input
+            id='pickup-geocoder'
             type='text'
             className={styles.input}
-            placeholder='Pickup location'
             name='pickup'
             value={pickup}
             {...{onChange, onFocus}}
@@ -52,6 +72,7 @@ export default function Header() {
         <div className={`${styles.item} ${focusedDropoffStyles}`}>
           <SquareSVG />
           <input
+            id='dropoff-geocoder'
             type='text'
             className={styles.input}
             placeholder='Dropoff?'

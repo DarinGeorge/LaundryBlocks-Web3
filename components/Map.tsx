@@ -9,21 +9,23 @@ export default function Map() {
   const {
     state: {coords},
     buildMap,
+    getRoute,
   } = useContext(MapContext);
 
   useEffect(() => {
-    if (!map) initMap();
+    if (!map) {
+      setMap(buildMap());
+      return;
+    }
 
     if (!coords) return;
-    if (coords.start && map) placeMarker(map, coords.start);
-    if (coords.end && map) placeMarker(map, coords.end);
-    if (coords.start && coords.end && map) map.fitBounds([coords.start, coords.end], {padding: 180});
+    if (coords.start) placeMarker(map, coords.start);
+    if (coords.end) placeMarker(map, coords.end);
+    if (coords.start && coords.end) {
+      getRoute(coords.start, coords.end, map);
+      map.fitBounds([coords.start, coords.end], {padding: 180});
+    }
   }, [coords]);
-
-  const initMap = () => {
-    const _map: MapBox.Map | undefined = buildMap();
-    setMap(_map);
-  };
 
   const placeMarker = (map: MapBox.Map, coordinates: MapBox.LngLatLike) => {
     new MapBox.Marker().setLngLat(coordinates).addTo(map);
