@@ -23,7 +23,7 @@ export default function Map() {
     if (coords.end) placeMarker(map, coords.end);
     if (coords.start && coords.end) {
       getRoute(coords.start, coords.end, map);
-      map.fitBounds([coords.start, coords.end], {padding: 180});
+      map.fitBounds([coords.start, coords.end], {padding: 300});
     }
   }, [coords]);
 

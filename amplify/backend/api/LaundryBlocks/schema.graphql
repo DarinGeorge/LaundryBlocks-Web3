@@ -1,0 +1,13 @@
+type Service @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  image: String
+  priceMultiplier: Float
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  walletAddress: String
+  username: String
+  image: String
+}

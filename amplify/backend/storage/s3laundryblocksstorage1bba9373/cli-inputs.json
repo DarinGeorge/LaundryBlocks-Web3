@@ -1,0 +1,16 @@
+{
+  "resourceName": "s3laundryblocksstorage1bba9373",
+  "bucketName": "laundryblocks-storage-1bba9373",
+  "policyUUID": "23889053",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

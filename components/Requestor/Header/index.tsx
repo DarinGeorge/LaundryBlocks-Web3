@@ -11,26 +11,9 @@ const token: string | undefined = process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN;
 export default function Header() {
   const [type, setType] = useState<string | 'pickup' | 'dropoff'>('pickup');
   const {
-    state: {map, pickup, dropoff},
+    state: {pickup, dropoff},
     dispatch,
   } = useContext(MapContext);
-
-  useEffect(() => {
-    if (!map) return;
-
-    initGeocoders();
-  }, [map]);
-
-  const initGeocoders = () => {
-    const geocoder = new MapBoxGeocoder({
-      accessToken: token || '',
-      mode: 'mapbox.places',
-      mapboxgl: map,
-      placeholder: 'Pickup location',
-    });
-
-    geocoder.addTo('#pickup-geocoder');
-  };
 
   const onChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;

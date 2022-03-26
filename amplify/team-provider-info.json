@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-laundryblocks-staging-162019-authRole",
+      "UnauthRoleArn": "arn:aws:iam::058887288681:role/amplify-laundryblocks-staging-162019-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::058887288681:role/amplify-laundryblocks-staging-162019-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-laundryblocks-staging-162019-deployment",
+      "UnauthRoleName": "amplify-laundryblocks-staging-162019-unauthRole",
+      "StackName": "amplify-laundryblocks-staging-162019",
+      "StackId": "arn:aws:cloudformation:us-east-1:058887288681:stack/amplify-laundryblocks-staging-162019/a10ee770-ad20-11ec-ace2-12e9f92573c7",
+      "AmplifyAppId": "d38ynwf7azfap3"
+    },
+    "categories": {
+      "auth": {
+        "LaundryBlocks": {}
+      }
+    }
+  }
+}
