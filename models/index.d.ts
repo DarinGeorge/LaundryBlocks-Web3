@@ -2,7 +2,15 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class Customer {
+  readonly name?: string;
+  readonly walletAddress?: string;
+  constructor(init: ModelInit<Customer>);
+}
 
+type DeliveryMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type ServiceMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -10,6 +18,19 @@ type ServiceMetaData = {
 
 type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Delivery {
+  readonly id: string;
+  readonly pickup?: string;
+  readonly dropoff?: string;
+  readonly customer?: Customer;
+  readonly price?: number;
+  readonly service?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Delivery, DeliveryMetaData>);
+  static copyOf(source: Delivery, mutator: (draft: MutableModel<Delivery, DeliveryMetaData>) => MutableModel<Delivery, DeliveryMetaData> | void): Delivery;
 }
 
 export declare class Service {

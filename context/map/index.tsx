@@ -1,13 +1,13 @@
-import {ethers} from 'ethers';
 import MapBox from 'mapbox-gl';
 import {Context, createContext, useEffect, useReducer} from 'react';
-import {saveUser} from '../../pages/api/operations/saveUser';
 import {MapProviderValue, MapReducerState} from '../../types';
 import {mapReducer} from './reducer';
 
 const mapInitialState: MapReducerState = {
   pickup: '',
   dropoff: '',
+  selectedService: undefined,
+  estimatedDeliveryDuration: 0,
   coords: {start: undefined, end: undefined},
 };
 
@@ -18,6 +18,7 @@ const mapInitialValue: MapProviderValue = {
   },
   buildMap: () => {},
   getRoute: async () => {},
+  processCoordinates: () => {},
 };
 
 const coordinateEndpoint: string | undefined = process.env.NEXT_PUBLIC_MAPBOX_PLACES_API_URL;
@@ -30,11 +31,7 @@ export function MapProvider({children}: any) {
   const [state, dispatch] = useReducer(mapReducer, mapInitialState);
   const {pickup, dropoff} = state;
 
-  useEffect(() => {
-    if (pickup.trim() === '' || dropoff.trim() === '') return;
-
-    processCoordinates();
-  }, [pickup, dropoff]);
+  let markers: MapBox.Marker[] = [];
 
   const buildMap = () => {
     const map = new MapBox.Map({
@@ -48,14 +45,30 @@ export function MapProvider({children}: any) {
     return map;
   };
 
+  const placeMarker = (map: MapBox.Map, coordinates: MapBox.LngLatLike) => {
+    markers.push(
+      new MapBox.Marker({
+        color: '#000',
+      })
+        .setLngLat(coordinates)
+        .addTo(map)
+    );
+  };
+
+  const clearMarkers = () => {
+    markers.forEach(marker => marker.remove());
+  };
+
   const getRoute = async (start: [number, number], end: [number, number], map: MapBox.Map) => {
     const query = await fetch(
       `${routingEndpoint}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${token}`,
       {method: 'GET'}
     );
     const json = await query.json();
+
     const data = json.routes[0];
     const route = data.geometry.coordinates;
+    const duration: number = data.duration;
     const geojson = {
       type: 'Feature' as const,
       properties: {},
@@ -64,12 +77,14 @@ export function MapProvider({children}: any) {
         coordinates: route,
       },
     };
+    clearMarkers();
+    placeMarker(map, start);
+    placeMarker(map, end);
     // if the route already exists on the map, we'll reset it
     if (map.getSource('route')) {
       // handle resetting data
-    }
-    // otherwise, we'll make a new request
-    else {
+    } else {
+      // otherwise, we'll make a new request
       map.addLayer({
         id: 'route',
         type: 'line',
@@ -82,12 +97,14 @@ export function MapProvider({children}: any) {
           'line-cap': 'round',
         },
         paint: {
-          'line-color': '#fff',
+          'line-color': '#000',
           'line-width': 5,
           'line-opacity': 0.75,
         },
       });
     }
+
+    dispatch({type: 'deliveryDuration', payload: duration});
   };
 
   const processCoordinates = async () => {
@@ -129,6 +146,7 @@ export function MapProvider({children}: any) {
     dispatch,
     buildMap,
     getRoute,
+    processCoordinates,
   };
 
   return <MapContext.Provider {...{value}}>{children}</MapContext.Provider>;

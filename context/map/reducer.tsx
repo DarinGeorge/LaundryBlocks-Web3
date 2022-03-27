@@ -30,6 +30,14 @@ export const mapReducer = (state: MapReducerState, action: MapReducerAction): Ma
       return state;
     }
 
+    case 'selectService': {
+      return {...state, selectedService: action.payload};
+    }
+
+    case 'deliveryDuration': {
+      return {...state, estimatedDeliveryDuration: action.payload};
+    }
+
     default: {
       return state;
     }

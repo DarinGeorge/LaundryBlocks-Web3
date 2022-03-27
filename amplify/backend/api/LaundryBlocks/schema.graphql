@@ -1,3 +1,17 @@
+type Customer {
+  name: String
+  walletAddress: String
+}
+
+type Delivery @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  pickup: String
+  dropoff: String
+  customer: Customer
+  price: Float
+  service: String
+}
+
 type Service @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String

@@ -20,17 +20,12 @@ export default function Map() {
     }
 
     if (!coords) return;
-    if (coords.start) placeMarker(map, coords.start);
-    if (coords.end) placeMarker(map, coords.end);
+
     if (coords.start && coords.end) {
       getRoute(coords.start, coords.end, map);
-      map.fitBounds([coords.start, coords.end], {padding: 300});
+      map.fitBounds([coords.start, coords.end], {padding: 200});
     }
   }, [coords]);
-
-  const placeMarker = (map: MapBox.Map, coordinates: MapBox.LngLatLike) => {
-    new MapBox.Marker().setLngLat(coordinates).addTo(map);
-  };
 
   return (
     <div className={styles.container}>
