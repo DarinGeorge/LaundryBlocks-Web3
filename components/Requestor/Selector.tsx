@@ -59,13 +59,26 @@ function OptionItem({
 
   useEffect(() => {
     getServiceImage();
-  }, [service]);
+  }, []);
 
   const getServiceImage = async () => {
-    if (!service.image) return;
+    if (!service.image || !service.id) return;
 
-    const _uri = await Storage.get(service.image);
-    setURI(_uri);
+    const savedURI = localStorage.getItem(service.id);
+    if (savedURI) {
+      console.log('found in storage');
+      setURI(savedURI);
+      return;
+    }
+
+    console.log('storage running');
+    await Storage.get(service.image).then(uri => {
+      // Save the uri to local storage to be used later, this
+      // prevents the need to continually fetch the image from s3
+      // which saves $$$!
+      localStorage.setItem(service.id, uri);
+      setURI(uri);
+    });
   };
 
   const onClick = () => {

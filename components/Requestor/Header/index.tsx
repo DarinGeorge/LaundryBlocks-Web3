@@ -1,14 +1,27 @@
 import MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {ChangeEvent, ChangeEventHandler, FocusEvent, FocusEventHandler, useContext, useEffect, useState} from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  Dispatch,
+  FocusEvent,
+  FocusEventHandler,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import {MapContext} from '../../../context/map';
 import {styles} from '../../../styles/components/Requestor.tailwind';
 import CircleSVG from './CircleSVG';
 import SquareSVG from './SquareSVG';
 
-const token: string | undefined = process.env.NEXT_PUBLIC_MAP_ACCESS_TOKEN;
+interface RequestorHeaderProps {
+  step: number;
+  setStep: Dispatch<SetStateAction<number>>;
+}
 
-export default function Header() {
+export default function Header({step, setStep}: RequestorHeaderProps) {
   const [type, setType] = useState<string | 'pickup' | 'dropoff'>('pickup');
   const {
     state: {pickup, dropoff},
@@ -22,6 +35,13 @@ export default function Header() {
 
   const onFocus: FocusEventHandler = (e: FocusEvent<HTMLInputElement>) => {
     const conditions: string[] = ['pickup', 'dropoff'];
+
+    /** If we focus any input to change the location while we are on
+     * step 1, we set the step back to 0, which resets the map.
+     */
+    if (step === 1) {
+      setStep((current: number) => current - 1);
+    }
 
     if (!conditions.includes(e.target.name)) return;
     setType(e.target.name);

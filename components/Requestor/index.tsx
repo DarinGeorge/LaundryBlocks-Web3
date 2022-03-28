@@ -17,7 +17,7 @@ export default function Requestor() {
           <div className={styles.waitingToConnect}>Connect to request services.</div>
         ) : (
           <>
-            <Header />
+            <Header {...{step, setStep}} />
             <Selector {...{step}} />
             <Confirm {...{step, setStep}} />
           </>
