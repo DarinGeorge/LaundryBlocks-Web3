@@ -5,8 +5,8 @@ This is a Web 3 Laundry Delivery App inspired by Uber.
 Notable Features:
 
 - Working web 3 auth and wallet integration with Metamask.
-- Saved Deliveries.
-- Live Price Updates.
+- Secure ETH on-chain payments.
+- Live Price Updates on location change.
 - Live Map Updates based on route.
 - Amplify DynamoDB Database integration.
 
