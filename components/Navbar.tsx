@@ -1,4 +1,4 @@
-import {BigNumber, ethers} from 'ethers';
+import {ethers} from 'ethers';
 import Image from 'next/image';
 import {useContext, useEffect, useState} from 'react';
 
