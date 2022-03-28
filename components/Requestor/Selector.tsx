@@ -66,12 +66,10 @@ function OptionItem({
 
     const savedURI = localStorage.getItem(service.id);
     if (savedURI) {
-      console.log('found in storage');
       setURI(savedURI);
       return;
     }
 
-    console.log('storage running');
     await Storage.get(service.image).then(uri => {
       // Save the uri to local storage to be used later, this
       // prevents the need to continually fetch the image from s3

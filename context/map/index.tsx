@@ -164,6 +164,5 @@ export function MapProvider({children}: any) {
     processCoordinates,
   };
 
-  console.log('>>>', markers);
   return <MapContext.Provider {...{value}}>{children}</MapContext.Provider>;
 }

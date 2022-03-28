@@ -27,7 +27,7 @@ export default function Navbar() {
       setBalance(Number(formattedBal));
     })();
   }, [currentUser, metamask]);
-  console.log('MMSK', balance);
+
   return (
     <div className={styles.container}>
       {/** Left List */}

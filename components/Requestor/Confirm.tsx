@@ -20,7 +20,6 @@ export default function Confirm({step, setStep}: ConfirmButtonProps) {
   const {currentUser, metamask} = useContext(MetamaskContext);
 
   const saveDeliveryDetails = async () => {
-    console.log(step);
     if (step === 0) {
       processCoordinates();
       setStep((current: number) => current + 1);
