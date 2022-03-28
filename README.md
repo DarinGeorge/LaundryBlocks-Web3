@@ -12,7 +12,9 @@ Notable Features:
 
 ## Viewing the Project
 
-You may view this project [here](https://laundryblocks.vercel.app).
+![Demo](assets/demo.gif)
+
+You may view the interactive project [here](https://laundryblocks.vercel.app).
 
 ## Learns
 
