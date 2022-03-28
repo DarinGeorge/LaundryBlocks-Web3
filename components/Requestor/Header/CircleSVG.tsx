@@ -10,7 +10,7 @@ export interface CircleProps {
 export default function CircleSVG({width = '1em', height = '1em'}: CircleProps) {
   return (
     <div className={styles.svgContainer}>
-      <svg viewBox='0 0 24 24' width='1em' height='1em'>
+      <svg viewBox='0 0 24 24' width={width} height={height}>
         <path
           fillRule='evenodd'
           clipRule='evenodd'

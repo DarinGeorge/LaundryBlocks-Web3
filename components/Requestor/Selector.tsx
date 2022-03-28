@@ -12,8 +12,6 @@ export interface SelectorProps {
   step: number;
 }
 
-const basePrice = 154;
-
 export default function Selector({step}: SelectorProps) {
   const {
     state: {selectedService, estimatedDeliveryDuration},

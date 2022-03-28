@@ -1,4 +1,3 @@
-import MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {
   ChangeEvent,
   ChangeEventHandler,
@@ -7,7 +6,6 @@ import {
   FocusEventHandler,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
 } from 'react';
 

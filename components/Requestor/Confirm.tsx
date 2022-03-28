@@ -1,5 +1,5 @@
 import {ethers} from 'ethers';
-import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useContext} from 'react';
 import {MapContext} from '../../context/map';
 import {MetamaskContext} from '../../context/metamask';
 import {saveDelivery} from '../../pages/api/operations/saveDelivery';
