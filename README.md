@@ -2,6 +2,17 @@
 
 This is a Web 3 Laundry Delivery App inspired by Uber.
 
+## Technologies Used
+
+- Vercel
+- Amplify
+- React
+- TypeScript/JavaScript
+- Tailwind CSS
+- Next.js
+- MetaMask
+- Ethers.js
+
 Notable Features:
 
 - Working web 3 auth and wallet integration with Metamask.
