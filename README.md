@@ -2,6 +2,12 @@
 
 This is a Web 3 Laundry Delivery App inspired by Uber.
 
+## Viewing the Project
+
+![Demo](assets/demo.gif)
+
+You may view the interactive project [here](https://laundryblocks.vercel.app).
+
 ## Technologies Used
 
 - Vercel
@@ -20,12 +26,6 @@ Notable Features:
 - Live Price Updates on location change.
 - Live Map Updates based on route.
 - Amplify DynamoDB Database integration.
-
-## Viewing the Project
-
-![Demo](assets/demo.gif)
-
-You may view the interactive project [here](https://laundryblocks.vercel.app).
 
 ## Learns
 
