@@ -19,20 +19,16 @@ You may view the interactive project [here](https://laundryblocks.vercel.app).
 - MetaMask
 - Ethers.js
 
-Notable Features:
+## Learns
 
 - Working web 3 auth and wallet integration with Metamask.
 - Secure ETH on-chain payments.
 - Live Price Updates on location change.
 - Live Map Updates based on route.
 - Amplify DynamoDB Database integration.
-
-## Learns
-
 - How to deploy an app with vercel.
 - Vercel CI/CD pipelines.
 - Working with Next.js and Amplify together.
-- Web 3 Auth Integration with Metamask.
 - Sending and Signing ETH Transactions.
 - Using Tailwind.css.
 
