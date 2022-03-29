@@ -41,3 +41,4 @@ You may view the interactive project [here](https://laundryblocks.vercel.app).
 - Adding responsiveness for mobile device viewing.
 - Driver page for accepting and recieving deliveries.
 - Automatic nearby laundry location population on the map.
+- Changing username and profile picture.
